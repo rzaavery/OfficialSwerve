@@ -24,8 +24,13 @@ public class Arm extends Command{
 
     @Override 
     public void execute(){
-        //arbitrary nums for stormnumber and incomingpower
-        localArmSub.runMotor(1,1);
+        //localArmSub.runMotor();
+        if (m_type == 0){
+            localArmSub.liftStringPot(m_type);
+        }
+        else if (m_type == 1){
+            localArmSub.algaeStringPot(m_type);
+        }
     }
 
     @Override
