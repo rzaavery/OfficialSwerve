@@ -18,6 +18,16 @@ public final class Constants {
     public static final int pigeonID = 14;
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
+    /*SpringPot Ports*/
+    public static final int WolvePort = 0;
+    public static final int ProfPort = 0;
+    public static final int StormPort = 0;
+    public static final int RoguePort = 0;
+
+    /*StringPot Constants*/
+    public static final int StringPotMax = 100;
+    public static final int StringPotMin = 0;
+
     /* Drivetrain Constants */
     public static final double trackWidth = Units.inchesToMeters(21.73);
     public static final double wheelBase = Units.inchesToMeters(21.73);
