@@ -6,6 +6,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import frc.lib.configs.SwerveModuleConstants;
 
 //test commit
@@ -19,10 +20,12 @@ public final class Constants {
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
     /*SpringPot Ports*/
-    public static final int WolvePort = 0;
-    public static final int ProfPort = 0;
-    public static final int StormPort = 0;
-    public static final int RoguePort = 0;
+    //public static final int WolvePort = 0;
+    //public static final int ProfPort = 4;
+    //public static final int StormPort = 0;
+    //public static final int RoguePort = 0;
+
+    static AnalogPotentiometer ProfPot = new AnalogPotentiometer(0);
 
     /*StringPot Constants*/
     public static final int StringPotMax = 100;
@@ -98,7 +101,7 @@ public final class Constants {
       public static final int driveMotorID = 1;
       public static final int angleMotorID = 2;
       public static final int canCoderID = 10;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(327.48046875);
+      public static final double angleOffset = 327.48046875;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -108,7 +111,7 @@ public final class Constants {
       public static final int driveMotorID = 3;
       public static final int angleMotorID = 4;
       public static final int canCoderID = 12;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(286.34765625);
+      public static final double angleOffset = 286.34765625;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -118,7 +121,7 @@ public final class Constants {
       public static final int driveMotorID = 5;
       public static final int angleMotorID = 6;
       public static final int canCoderID = 13;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(55.01953125);
+      public static final double angleOffset = 55.01953125;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }
@@ -128,7 +131,7 @@ public final class Constants {
       public static final int driveMotorID = 7;
       public static final int angleMotorID = 8;
       public static final int canCoderID = 11;
-      public static final Rotation2d angleOffset = Rotation2d.fromDegrees(67.939453125);
+      public static final double angleOffset = 67.939453125;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
     }

@@ -28,7 +28,7 @@ import frc.robot.CTREConfigs;
 public class SwerveModule {
   public int moduleNumber;
   private Rotation2d lastAngle;
-  private Rotation2d angleOffset;
+  private double angleOffset;
 
   private SparkMax angleMotor;
   private SparkMax driveMotor;
@@ -52,6 +52,7 @@ public class SwerveModule {
 
     /* Angle Encoder Config */
     angleEncoder = new CANcoder(moduleConstants.cancoderID);
+    Robot.ctreConfigs.swerveCANcoderConfig.MagnetSensor.MagnetOffset = angleOffset;
     angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
 
     /* Angle Motor Config */
@@ -79,9 +80,13 @@ public class SwerveModule {
     setSpeed(desiredState, isOpenLoop);
   }
 
-  private void resetToAbsolute() {
-    double absolutePosition = getCanCoder().getDegrees() - angleOffset.getDegrees();
-    integratedAngleEncoder.setPosition(absolutePosition);
+  public void resetToAbsolute() {
+    //double absolutePosition = getCanCoder().getDegrees() - angleOffset.getDegrees();
+    //integratedAngleEncoder.setPosition(absolutePosition);
+  }
+
+  public void setPosition(){
+    integratedAngleEncoder.setPosition(0);
   }
 
   private void configAngleMotor() {

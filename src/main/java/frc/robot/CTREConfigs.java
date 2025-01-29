@@ -17,6 +17,7 @@ public class CTREConfigs {
         config = new SparkMaxConfig();
         /** Swerve CANCoder Configuration */
         swerveCANcoderConfig.MagnetSensor.SensorDirection = SensorDirectionValue.CounterClockwise_Positive;
+        
         //swerveCanCoderConfig.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
         //swerveCanCoderConfig.initializationStrategy =
             //SensorInitializationStrategy.BootToAbsolutePosition;

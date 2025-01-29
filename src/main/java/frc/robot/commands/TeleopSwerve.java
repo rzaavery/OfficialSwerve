@@ -3,6 +3,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Swerve;
@@ -34,7 +35,6 @@ public class TeleopSwerve extends Command {
     this.rotationSup = rotationSup;
     this.robotCentricSup = robotCentricSup;
   }
-
   @Override
   public void execute() {
     /* Get Values, Deadband*/
@@ -47,8 +47,7 @@ public class TeleopSwerve extends Command {
     double rotationVal =
         rotationLimiter.calculate(
             MathUtil.applyDeadband(rotationSup.getAsDouble(), Constants.Swerve.stickDeadband));
-
-    /* Drive */
+    Translation2d translation = new Translation2d(translationVal,strafeVal).times(Constants.Swerve.maxSpeed);
     s_Swerve.drive(
         new Translation2d(translationVal, strafeVal).times(Constants.Swerve.maxSpeed),
         rotationVal * Constants.Swerve.maxAngularVelocity,
