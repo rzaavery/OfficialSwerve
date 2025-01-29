@@ -72,9 +72,11 @@ public class RobotContainer {
       //algaeButton.onTrue(new Arm(m_ArmSub,1));
     }
   
+  //bounds low: 0.01, high 0.07
   public static double sendAxisValue(int controllerID, int axisNumber){
     double axisOutput = driver.getRawAxis(axisNumber);
     return axisOutput;
+    
   }
 
   /**

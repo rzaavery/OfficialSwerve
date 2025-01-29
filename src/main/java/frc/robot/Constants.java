@@ -21,11 +21,12 @@ public final class Constants {
 
     /*SpringPot Ports*/
     //public static final int WolvePort = 0;
-    //public static final int ProfPort = 4;
+    public static final int ProfPort = 20;
     //public static final int StormPort = 0;
     //public static final int RoguePort = 0;
 
-    static AnalogPotentiometer ProfPot = new AnalogPotentiometer(0);
+    //prof pot port 20
+    public static AnalogPotentiometer ProfPot = new AnalogPotentiometer(0);
 
     /*StringPot Constants*/
     public static final int StringPotMax = 100;

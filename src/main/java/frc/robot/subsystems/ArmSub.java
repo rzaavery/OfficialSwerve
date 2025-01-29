@@ -9,18 +9,25 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.Arm;
+import frc.robot.Constants;
 
 public class ArmSub extends SubsystemBase {
     //Wolverine = ; Prof = ; Storm = ; Rogue = ;
     public static boolean autoComplete = false;
+    private static double m_axisOutput = RobotContainer.sendAxisValue(0, 2);
     //private final static SparkMax Wolverine = new SparkMax(Constants.Swerve.WolvePort, MotorType.kBrushless);
-    //private final static SparkMax Prof = new SparkMax(Constants.Swerve.ProfPort, MotorType.kBrushless);
+    private final static SparkMax Prof = new SparkMax(Constants.Swerve.ProfPort, MotorType.kBrushless);
     //private final static SparkMax Storm = new SparkMax(Constants.Swerve.StormPort, MotorType.kBrushless);
     //private final static CANSparkMax Rogue = new CANSparkMax(Constants.Swerve.RoguePort);
 
     public static boolean liftStringPot(double incomingPower){
-        //Prof.set(RobotContainer.sendAxisValue(0, 2));
-        autoComplete = true;
+        if ((m_axisOutput > 0.01)&&(m_axisOutput < 0.07)){
+            Prof.set(RobotContainer.sendAxisValue(0, 2));
+            autoComplete = true;
+        }
+        else{
+            Prof.set(0);
+        }
         return autoComplete;
     }
 
