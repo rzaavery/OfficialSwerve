@@ -19,19 +19,6 @@ public final class Constants {
     public static final int pigeonID = 14;
     public static final boolean invertGyro = false; // Always ensure Gyro is CCW+ CW-
 
-    /*SpringPot Ports*/
-    //public static final int WolvePort = 0;
-    public static final int ProfPort = 20;
-    //public static final int StormPort = 0;
-    //public static final int RoguePort = 0;
-
-    //prof pot port 20
-    public static AnalogPotentiometer ProfPot = new AnalogPotentiometer(0);
-
-    /*StringPot Constants*/
-    public static final int StringPotMax = 100;
-    public static final int StringPotMin = 0;
-
     /* Drivetrain Constants */
     public static final double trackWidth = Units.inchesToMeters(21.73);
     public static final double wheelBase = Units.inchesToMeters(21.73);
@@ -102,9 +89,10 @@ public final class Constants {
       public static final int driveMotorID = 1;
       public static final int angleMotorID = 2;
       public static final int canCoderID = 10;
+      public static final double MagnetOffset = -0.52001953125;
       public static final double angleOffset = 327.48046875;
       public static final SwerveModuleConstants constants =
-          new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+          new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, MagnetOffset, angleOffset);
     }
 
     /* Front Right Module - Module 1 */
@@ -112,9 +100,10 @@ public final class Constants {
       public static final int driveMotorID = 3;
       public static final int angleMotorID = 4;
       public static final int canCoderID = 12;
+      public static final double MagnetOffset = 0.347900390625;
       public static final double angleOffset = 286.34765625;
       public static final SwerveModuleConstants constants =
-          new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+          new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, MagnetOffset, angleOffset);
     }
 
     /* Back Left Module - Module 2 */
@@ -122,9 +111,10 @@ public final class Constants {
       public static final int driveMotorID = 5;
       public static final int angleMotorID = 6;
       public static final int canCoderID = 13;
+      public static final double MagnetOffset = -0.980712890625;
       public static final double angleOffset = 55.01953125;
       public static final SwerveModuleConstants constants =
-          new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+          new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, MagnetOffset, angleOffset);
     }
 
     /* Back Right Module - Module 3 */
@@ -132,9 +122,10 @@ public final class Constants {
       public static final int driveMotorID = 7;
       public static final int angleMotorID = 8;
       public static final int canCoderID = 11;
+      public static final double MagnetOffset = -0.060546875;
       public static final double angleOffset = 67.939453125;
       public static final SwerveModuleConstants constants =
-          new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+          new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, MagnetOffset, angleOffset);
     }
   }
 
@@ -152,5 +143,87 @@ public final class Constants {
     public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
         new TrapezoidProfile.Constraints(
             kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
+  }
+
+  public static final class DrivingConstants{
+    public static final int driverPort = 0;
+  }
+
+  public static final class OperatingConstants{
+    public static final int OperatingPort = 1;
+  }
+
+  public static final class CANPort{
+    public static final int LeftLiftPort = 15;
+    public static final int RightLiftPort = 16;
+    public static final int ElevationPort = 17;
+    public static final int SpinnerPort = 18;
+    public static final int WenchPort = 19;
+    public static final int ElevatorPort = 20;
+    public static final int FlippyPort = 21;
+  }
+
+  public static final class PWMPort{
+    public static final int LeftIntakePort = 0;
+    public static final int RightIntakePort = 1;
+    public static final int ExtensionPort = 2;
+  }
+
+  public static final class StringPotLimits{
+    public static final double LeftLiftMin = 0;
+    public static final double LeftLiftMax = 0;
+    public static final double RightLiftMin = 0;
+    public static final double RightLiftMax = 0;
+    public static final double ElevationMin = 0;
+    public static final double ElevationMax = 0;
+    public static final double WenchMin = 0;
+    public static final double WenchMax = 0;
+    public static final double ElevatorMin = 0;
+    public static final double ElevatorMax = 0;
+    public static final double ExtensionMin = 0;
+    public static final double ExtensionMax = 0;
+    public static final double FlippyMin = 0;
+    public static final double FlippyMax = 0;
+  }
+
+  static AnalogPotentiometer LeftLiftPot = new AnalogPotentiometer(0);
+  static AnalogPotentiometer RightLiftPot = new AnalogPotentiometer(1);
+  static AnalogPotentiometer ElevationPot = new AnalogPotentiometer(2);
+  static AnalogPotentiometer WenchPot = new AnalogPotentiometer(3);
+  static AnalogPotentiometer ElevatorPot = new AnalogPotentiometer(4);
+  static AnalogPotentiometer ExtensionPot = new AnalogPotentiometer(5);
+  static AnalogPotentiometer FlippyPot = new AnalogPotentiometer(6);
+
+  public static double StringPot(int PotID){
+    double potValue = 0;
+
+    switch(PotID){
+      case 0:
+        potValue = LeftLiftPot.get();
+      break;
+      case 1:
+        potValue = RightLiftPot.get();
+      break;
+      case 2:
+        potValue = ElevationPot.get();
+      break;
+      case 3:
+        potValue = WenchPot.get();
+      break;
+      case 4:
+        potValue = ElevatorPot.get();
+      break;
+      case 5:
+        potValue = ExtensionPot.get();
+      break;
+      case 6:
+        potValue = FlippyPot.get();
+      break;
+    }
+    return potValue;
+  }
+
+  public static double SPDif(int PotID, double targetValue){
+    return(targetValue - StringPot(PotID));
   }
 }

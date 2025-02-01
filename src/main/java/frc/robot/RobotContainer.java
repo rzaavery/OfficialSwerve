@@ -22,30 +22,35 @@ import frc.robot.subsystems.*;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+  /* Subsystems */
+  private final Swerve s_Swerve = new Swerve();
+  private final StringPotSub m_StringPotSub = new StringPotSub();
+
   /* Controllers */
-  private final static XboxController driver = new XboxController(0);
+  private final static XboxController driver = new XboxController(Constants.DrivingConstants.driverPort);
+  private final static XboxController operator = new XboxController(Constants.OperatingConstants.OperatingPort);
+
+  /* Drive Controls */
+  private final int translationAxis = XboxController.Axis.kLeftY.value;
+  private final int strafeAxis = XboxController.Axis.kLeftX.value;
+  private final int rotationAxis = XboxController.Axis.kRightX.value;
   
-    /* Drive Controls */
-    private final int translationAxis = XboxController.Axis.kLeftY.value;
-    private final int strafeAxis = XboxController.Axis.kLeftX.value;
-    private final int rotationAxis = XboxController.Axis.kRightX.value;
+  /* Driver Buttons */
+  private final JoystickButton zeroGyro =
+      new JoystickButton(driver, XboxController.Button.kY.value);
+  private final JoystickButton robotCentric =
+      new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
+  private final JoystickButton stringPotButton =
+      new JoystickButton(operator, XboxController.Button.kA.value);
+  private final JoystickButton stringPotButtonBackwards =
+      new JoystickButton(operator, XboxController.Button.kB.value);    
   
-    /* Driver Buttons */
-    private final JoystickButton zeroGyro =
-        new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton robotCentric =
-        new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
-    private final JoystickButton liftStringPot =
-        new JoystickButton(driver, XboxController.Button.kA.value);
-    private final JoystickButton algaeButton =
-        new JoystickButton(driver, XboxController.Button.kB.value);
-  
-    /* Subsystems */
-    private final Swerve s_Swerve = new Swerve();
-    private final ArmSub m_ArmSub = new ArmSub();
+
   
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer() {
+      m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub,"Prof"));
       s_Swerve.setDefaultCommand(
           new TeleopSwerve(
               s_Swerve,
@@ -66,17 +71,26 @@ public class RobotContainer {
      */
     private void configureButtonBindings() {
       /* Driver Buttons */
+      //Prof - Motor 1; Rogue - Motor 2
       zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
       robotCentric.onTrue(new InstantCommand(() -> s_Swerve.reset()));
-      liftStringPot.onTrue(new Arm(m_ArmSub,0));
-      //algaeButton.onTrue(new Arm(m_ArmSub,1));
+      stringPotButton.onTrue(new StringPotButton(m_StringPotSub,1,"Rogue"));
+      stringPotButtonBackwards.onTrue(new StringPotButton(m_StringPotSub,-1,"Rogue"));
     }
   
   //bounds low: 0.01, high 0.07
   public static double sendAxisValue(int controllerID, int axisNumber){
-    double axisOutput = driver.getRawAxis(axisNumber);
+    double axisOutput = 0;
+    //double axisOutput;
+    switch(controllerID){
+      case 0:
+        axisOutput = 0;
+      break;
+      case 1:
+        axisOutput = operator.getRawAxis(axisNumber);
+      break;
+    }
     return axisOutput;
-    
   }
 
   /**

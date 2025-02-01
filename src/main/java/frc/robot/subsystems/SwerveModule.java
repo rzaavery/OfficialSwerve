@@ -29,6 +29,7 @@ public class SwerveModule {
   public int moduleNumber;
   private Rotation2d lastAngle;
   private double angleOffset;
+  private double MagnetOffset;
 
   private SparkMax angleMotor;
   private SparkMax driveMotor;
@@ -49,10 +50,11 @@ public class SwerveModule {
   public SwerveModule(int moduleNumber, SwerveModuleConstants moduleConstants) {
     this.moduleNumber = moduleNumber;
     this.angleOffset = moduleConstants.angleOffset;
+    this.MagnetOffset = moduleConstants.MagnetOffset;
 
     /* Angle Encoder Config */
     angleEncoder = new CANcoder(moduleConstants.cancoderID);
-    Robot.ctreConfigs.swerveCANcoderConfig.MagnetSensor.MagnetOffset = angleOffset;
+    Robot.ctreConfigs.swerveCANcoderConfig.MagnetSensor.MagnetOffset = MagnetOffset;
     angleEncoder.getConfigurator().apply(Robot.ctreConfigs.swerveCANcoderConfig);
 
     /* Angle Motor Config */

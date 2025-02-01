@@ -84,7 +84,8 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    SmartDashboard.putNumber("String Pot Output", Constants.Swerve.ProfPot.get());
+    SmartDashboard.putString("DB/String 1", Double.toString(Constants.StringPot(0)));
+    //SmartDashboard.putNumber("Raw Axis",RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1));
   }
 
   @Override
