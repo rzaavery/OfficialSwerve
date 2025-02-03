@@ -21,11 +21,8 @@ public class Intake extends Command{
 
     @Override 
     public void execute(){
-        if (type == "Left Intake"){
+        if (type == "Front Arm"){
             IntakeSub.runMotor(0,incomingPower);
-        }
-        else if (type == "Right Intake"){
-            IntakeSub.runMotor(1,incomingPower);
         }
         else if (type == "Spinner"){
             IntakeSub.runMotor(2, incomingPower);
