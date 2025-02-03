@@ -93,6 +93,11 @@ public class RobotContainer {
     operator.POVButton(operator,0).onTrue(new StringPotButton(m_StringPotSub,0,"Elevator"));
     operator.POVButton(operator,90).onTrue(new StringPotButton(m_StringPotSub,1,"Elevator"));
     operator.POVButton(operator,270).onTrue(new StringPotButton(m_StringPotSub,2,"Elevator"));
+    operator.getLeftY().whileHeld(new StringPotAxis(m_StringPotSub,"Elevation"));
+    operator.getRightY().whileHeld(new StringPotAxis(m_StringPotSub,"Elevator"));
+    operator.getRightX().whileHeld(new StringPotAxis(m_StringPotSub,"Extension"));
+    operator.leftTrigger().onTrue(new StringPotAxis(m_StringPotSub,"Elevation"));
+    operator.rightTrigger().onTrue(new StringPotAxis(m_StringPotSub,"Elevation"));
   }
   
   //bounds low: 0.01, high 0.07

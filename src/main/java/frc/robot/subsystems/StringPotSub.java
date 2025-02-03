@@ -74,11 +74,11 @@ public class StringPotSub extends SubsystemBase {
             break;
             case 2:
                 if ((Constants.StringPot(4) > min) && (Constants.StringPot(4) < max)) {
-                    Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
+                    Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
                 }
                 else if ((Constants.StringPot(4) < min)) {
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
-                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
+                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
                     }   
                     else {
                         Elevator.set(0);
@@ -86,7 +86,7 @@ public class StringPotSub extends SubsystemBase {
                 }
                 else if ((Constants.StringPot(4) > max)){
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
-                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1));
+                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 3));
                     } 
                     else {
                         Elevator.set(0);
@@ -95,11 +95,11 @@ public class StringPotSub extends SubsystemBase {
             break;
             case 3:
                 if ((Constants.StringPot(5) > min) && (Constants.StringPot(5) < max)) {
-                    Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
+                    Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
                 }
                 else if ((Constants.StringPot(5) < min)) {
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
-                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
+                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
                     }   
                     else {
                         Extension.set(0);
@@ -107,7 +107,7 @@ public class StringPotSub extends SubsystemBase {
                 }
                 else if ((Constants.StringPot(5) > max)){
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
-                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1));
+                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2));
                     } 
                     else {
                         Extension.set(0);
