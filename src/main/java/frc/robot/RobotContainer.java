@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -60,14 +61,16 @@ public class RobotContainer {
   private final JoystickButton Flippy =
       new JoystickButton(operator, 6);
   
-  public POVButton up = new POVButton(operator, 0);
-	public POVButton left = new POVButton(operator, 270);
-	public POVButton right = new POVButton(operator, 90);
+  private POVButton up = new POVButton(operator, 0);
+	private POVButton left = new POVButton(operator, 270);
+	private POVButton right = new POVButton(operator, 90);
 
-	public double GetDriverRawAxis(int axis) {
-		return operator.getRawAxis(axis);
-	}
-  
+  Trigger elevationTrigger = new Trigger(() -> operator.getRawAxis(1) != 0);
+  Trigger leftWenchTrigger = new Trigger(() -> operator.getRawAxis(2) != 0);
+  Trigger rightWenchTrigger = new Trigger(() -> operator.getRawAxis(3) != 0);
+  Trigger elevatorTrigger = new Trigger(() -> operator.getRawAxis(5) != 0);
+  Trigger extensionTrigger = new Trigger(() -> operator.getRawAxis(4) != 0);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub,"Prof"));
@@ -77,7 +80,7 @@ public class RobotContainer {
             () -> -driver.getRawAxis(translationAxis),
             () -> -driver.getRawAxis(strafeAxis),
             () -> -driver.getRawAxis(rotationAxis),
-            () -> driver.getLeftBumper()));
+            () -> robotCentric.getAsBoolean()));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -93,22 +96,21 @@ public class RobotContainer {
     /* Driver Buttons */
     //Prof - Motor 1; Rogue - Motor 2
     //zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    ArmIntake.onTrue(new StringPotButton(m_intakeSub,1,"Front Arm"));
-
-    operator.x().onTrue(new Intake(m_intakeSub,1,"Front Arm"));
-    operator.y().onTrue(new Intake(m_intakeSub,-1,"Front Arm"));
-    operator.a().onTrue(new StringPotButton(m_StringPotSub,1,"Lift"));
-    operator.b().onTrue(new StringPotButton(m_StringPotSub,-1,"Lift"));
-    operator.start().onTrue(new Intake(m_intakeSub,1,"Spinner"));
-    operator.rightBumper().onTrue(new StringPotButton(m_StringPotSub,1,"Flippy"));
-    operator.getPOV(operator,0).onTrue(new StringPotButton(m_StringPotSub,0,"Elevator"));
-    operator.POVButton(operator,90).onTrue(new StringPotButton(m_StringPotSub,1,"Elevator"));
-    operator.POVButton(operator,270).onTrue(new StringPotButton(m_StringPotSub,2,"Elevator"));
-    operator.getLeftY().whileHeld(new StringPotAxis(m_StringPotSub,"Elevation"));
-    operator.getRightY().whileHeld(new StringPotAxis(m_StringPotSub,"Elevator"));
-    operator.getRightX().whileHeld(new StringPotAxis(m_StringPotSub,"Extension"));
-    operator.leftTrigger().onTrue(new StringPotAxis(m_StringPotSub,"Elevation"));
-    operator.rightTrigger().onTrue(new StringPotAxis(m_StringPotSub,"Elevation"));
+    ArmIntake.onTrue(new Intake(m_intakeSub,1,"Front Arm"));
+    ArmDetake.onTrue(new Intake(m_intakeSub,-1,"Front Arm"));
+    LiftUp.onTrue(new StringPotButton(m_StringPotSub,1,"Lift"));
+    LiftDown.onTrue(new StringPotButton(m_StringPotSub,-1,"Lift"));
+    Spinner.onTrue(new Intake(m_intakeSub,1,"Spinner"));
+    Flippy.onTrue(new StringPotButton(m_StringPotSub,1,"Flippy"));
+    up.onTrue(new StringPotButton(m_StringPotSub,1,"Elevator"));
+    left.onTrue(new StringPotButton(m_StringPotSub, 1, "Elevator"));
+    right.onTrue(new StringPotButton(m_StringPotSub, 1, "Elevator"));
+    
+    elevationTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Elevation"));
+    elevatorTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Elevator"));
+    extensionTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Extension"));
+    leftWenchTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Wench"));
+    rightWenchTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Wench"));
   }
   
   //bounds low: 0.01, high 0.07
