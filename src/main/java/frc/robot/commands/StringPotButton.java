@@ -21,17 +21,14 @@ public class StringPotButton extends Command{
     @Override 
     public void execute(){
         //Motor Number 0: Rogue
-        if (type == "Left Lift"){
+        if (type == "Lift"){
             StringPotSub.runMotorButton(Constants.StringPotLimits.LeftLiftMin,Constants.StringPotLimits.LeftLiftMax,0,incomingPower);
         }
-        else if (type == "Right Lift"){
-            StringPotSub.runMotorButton(Constants.StringPotLimits.RightLiftMin, Constants.StringPotLimits.RightLiftMax, 1, incomingPower);
-        }
         else if (type == "Elevator"){
-            StringPotSub.runMotorButton(Constants.StringPotLimits.ElevatorMin, Constants.StringPotLimits.ElevatorMax, 2, incomingPower);
+            StringPotSub.runMotorButton(Constants.StringPotLimits.ElevatorMin, Constants.StringPotLimits.ElevatorMax, 1, incomingPower);
         }
         else if (type == "Flippy"){
-            StringPotSub.runMotorButton(Constants.StringPotLimits.FlippyMin, Constants.StringPotLimits.FlippyMax, 3, incomingPower);
+            StringPotSub.runMotorButton(Constants.StringPotLimits.FlippyMin, Constants.StringPotLimits.FlippyMax, 2, incomingPower);
         }
     }
 

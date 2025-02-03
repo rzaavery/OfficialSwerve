@@ -16,8 +16,6 @@ public class IntakeSub extends SubsystemBase{
         switch(motorNumber){
             case 0:
                 LeftIntake.set(incomingPower);
-            break;
-            case 1:
                 RightIntake.set(incomingPower);
             break;
             case 2:

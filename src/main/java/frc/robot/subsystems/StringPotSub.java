@@ -31,10 +31,10 @@ public class StringPotSub extends SubsystemBase {
 
         switch(motorNumber){
             case 0:
-                if ((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max)) {
+                if ((Constants.StringPot(2) > min) && (Constants.StringPot(2) < max)) {
                     Elevation.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
                 }
-                else if ((Constants.StringPot(0) < min)) {
+                else if ((Constants.StringPot(2) < min)) {
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
                         Elevation.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
                     }   
@@ -42,7 +42,7 @@ public class StringPotSub extends SubsystemBase {
                         Elevation.set(0);
                     }
                 }
-                else if ((Constants.StringPot(0) > max)){
+                else if ((Constants.StringPot(2) > max)){
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
                         Elevation.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1));
                     } 
@@ -52,10 +52,10 @@ public class StringPotSub extends SubsystemBase {
                 }
             break;
             case 1:
-                if ((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max)) {
+                if ((Constants.StringPot(3) > min) && (Constants.StringPot(3) < max)) {
                     Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
                 }
-                else if ((Constants.StringPot(0) < min)) {
+                else if ((Constants.StringPot(3) < min)) {
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
                         Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
                     }   
@@ -63,7 +63,7 @@ public class StringPotSub extends SubsystemBase {
                         Wench.set(0);
                     }
                 }
-                else if ((Constants.StringPot(0) > max)){
+                else if ((Constants.StringPot(3) > max)){
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
                         Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1));
                     } 
@@ -73,20 +73,20 @@ public class StringPotSub extends SubsystemBase {
                 }
             break;
             case 2:
-                if ((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max)) {
-                    Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
+                if ((Constants.StringPot(4) > min) && (Constants.StringPot(4) < max)) {
+                    Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
                 }
-                else if ((Constants.StringPot(0) < min)) {
+                else if ((Constants.StringPot(4) < min)) {
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
-                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
+                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
                     }   
                     else {
                         Elevator.set(0);
                     }
                 }
-                else if ((Constants.StringPot(0) > max)){
+                else if ((Constants.StringPot(4) > max)){
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
-                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1));
+                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 3));
                     } 
                     else {
                         Elevator.set(0);
@@ -94,20 +94,20 @@ public class StringPotSub extends SubsystemBase {
                 }
             break;
             case 3:
-                if ((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max)) {
-                    Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
+                if ((Constants.StringPot(5) > min) && (Constants.StringPot(5) < max)) {
+                    Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
                 }
-                else if ((Constants.StringPot(0) < min)) {
+                else if ((Constants.StringPot(5) < min)) {
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
-                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
+                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
                     }   
                     else {
                         Extension.set(0);
                     }
                 }
-                else if ((Constants.StringPot(0) > max)){
+                else if ((Constants.StringPot(5) > max)){
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
-                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1));
+                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2));
                     } 
                     else {
                         Extension.set(0);
@@ -121,73 +121,57 @@ public class StringPotSub extends SubsystemBase {
     public static void runMotorButton(double min, double max, int motorNumber, double incomingPower){
         switch(motorNumber){
             case 0:
-                if ((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max)) {
+                if (((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max))&&((Constants.StringPot(1) > Constants.StringPotLimits.RightLiftMin)&&(Constants.StringPot(1) < Constants.StringPotLimits.RightLiftMax))) {
                     LeftLift.set(incomingPower);
+                    RightLift.set(incomingPower)
                 }
-                else if ((Constants.StringPot(0) < min)) {
+                else if ((Constants.StringPot(0) < min)&&(Constants.StringPot(1) > Constants.StringPotLimits.RightLiftMin)) {
                     if (incomingPower > 0) {
                         LeftLift.set(incomingPower);
+                        RightLift.set(incomingPower);
                     }   
                     else {
                         LeftLift.set(0);
+                        RightLift.set(0);
                     }
                 }
-                else if ((Constants.StringPot(0) > max)){
+                else if ((Constants.StringPot(0) > max)&&(Constants.StringPot(1) > Constants.StringPotLimits.RightLiftMax)){
                     if (incomingPower < 0){
                         LeftLift.set(incomingPower);
+                        RightLift.set(incomingPower);
                     } 
                     else {
                         LeftLift.set(0);
+                        RightLift.set(0);
                     }
                 }
             break;
             case 1:
-                if ((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max)) {
-                    RightLift.set(incomingPower);
+                if ((Constants.StringPot(4) > min) && (Constants.StringPot(4) < max)) {
+                    Elevator.set(incomingPower);
                 }
-                else if ((Constants.StringPot(0) < min)) {
+                else if ((Constants.StringPot(4) < min)) {
                     if (incomingPower > 0) {
-                        RightLift.set(incomingPower);
+                        Elevator.set(incomingPower);
                     }   
                     else {
-                        RightLift.set(0);
+                        Elevator.set(0);
                     }
                 }
-                else if ((Constants.StringPot(0) > max)){
+                else if ((Constants.StringPot(4) > max)){
                     if (incomingPower < 0){
-                        RightLift.set(incomingPower);
+                        Elevator.set(incomingPower);
                     } 
                     else {
-                        RightLift.set(0);
+                        Elevator.set(0);
                     }
                 }
             break;
             case 2:
-                if ((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max)) {
-                    Elevator.set(incomingPower);
-                }
-                else if ((Constants.StringPot(0) < min)) {
-                    if (incomingPower > 0) {
-                        Elevator.set(incomingPower);
-                    }   
-                    else {
-                        Elevator.set(0);
-                    }
-                }
-                else if ((Constants.StringPot(0) > max)){
-                    if (incomingPower < 0){
-                        Elevator.set(incomingPower);
-                    } 
-                    else {
-                        Elevator.set(0);
-                    }
-                }
-            break;
-            case 3:
-                if ((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max)) {
+                if ((Constants.StringPot(6) > min) && (Constants.StringPot(6) < max)) {
                     Flippy.set(incomingPower);
                 }
-                else if ((Constants.StringPot(0) < min)) {
+                else if ((Constants.StringPot(6) < min)) {
                     if (incomingPower > 0) {
                         Flippy.set(incomingPower);
                     }   
@@ -195,7 +179,7 @@ public class StringPotSub extends SubsystemBase {
                         Flippy.set(0);
                     }
                 }
-                else if ((Constants.StringPot(0) > max)){
+                else if ((Constants.StringPot(6) > max)){
                     if (incomingPower < 0){
                         Flippy.set(incomingPower);
                     } 
