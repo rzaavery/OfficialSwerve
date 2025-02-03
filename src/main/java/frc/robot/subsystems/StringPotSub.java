@@ -52,41 +52,64 @@ public class StringPotSub extends SubsystemBase {
                 }
             break;
             case 1:
-                if ((Constants.StringPot(3) > min) && (Constants.StringPot(3) < max)) {
-                    Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
-                }
-                else if ((Constants.StringPot(3) < min)) {
-                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
-                        Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
-                    }   
-                    else {
-                        Wench.set(0);
+                if ((RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2)) > 0){
+                    if ((Constants.StringPot(3) > min) && (Constants.StringPot(3) < max)) {
+                        Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
+                    }
+                    else if ((Constants.StringPot(3) < min)) {
+                        if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
+                            Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
+                        }   
+                        else {
+                            Wench.set(0);
+                        }
+                    }
+                    else if ((Constants.StringPot(3) > max)){
+                        if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2) < 0){
+                            Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2));
+                        } 
+                        else {
+                            Wench.set(0);
+                        }
                     }
                 }
-                else if ((Constants.StringPot(3) > max)){
-                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
-                        Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1));
-                    } 
-                    else {
-                        Wench.set(0);
+                else if ((RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 3)) < 0){
+                    if ((Constants.StringPot(3) > min) && (Constants.StringPot(3) < max)) {
+                        Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
+                    }
+                    else if ((Constants.StringPot(3) < min)) {
+                        if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 3) > 0) {
+                            Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
+                        }   
+                        else {
+                            Wench.set(0);
+                        }
+                    }
+                    else if ((Constants.StringPot(3) > max)){
+                        if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2) < 0){
+                            Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 3));
+                        } 
+                        else {
+                            Wench.set(0);
+                        }
                     }
                 }
             break;
             case 2:
                 if ((Constants.StringPot(4) > min) && (Constants.StringPot(4) < max)) {
-                    Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
+                    Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,5));
                 }
                 else if ((Constants.StringPot(4) < min)) {
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
-                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
+                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,5));
                     }   
                     else {
                         Elevator.set(0);
                     }
                 }
                 else if ((Constants.StringPot(4) > max)){
-                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
-                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 3));
+                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 5) < 0){
+                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 5));
                     } 
                     else {
                         Elevator.set(0);
@@ -95,19 +118,19 @@ public class StringPotSub extends SubsystemBase {
             break;
             case 3:
                 if ((Constants.StringPot(5) > min) && (Constants.StringPot(5) < max)) {
-                    Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
+                    Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,4));
                 }
                 else if ((Constants.StringPot(5) < min)) {
-                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
-                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
+                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 4) > 0) {
+                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,4));
                     }   
                     else {
                         Extension.set(0);
                     }
                 }
                 else if ((Constants.StringPot(5) > max)){
-                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
-                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2));
+                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 4) < 0){
+                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 4));
                     } 
                     else {
                         Extension.set(0);
@@ -123,7 +146,7 @@ public class StringPotSub extends SubsystemBase {
             case 0:
                 if (((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max))&&((Constants.StringPot(1) > Constants.StringPotLimits.RightLiftMin)&&(Constants.StringPot(1) < Constants.StringPotLimits.RightLiftMax))) {
                     LeftLift.set(incomingPower);
-                    RightLift.set(incomingPower)
+                    RightLift.set(incomingPower);
                 }
                 else if ((Constants.StringPot(0) < min)&&(Constants.StringPot(1) > Constants.StringPotLimits.RightLiftMin)) {
                     if (incomingPower > 0) {
