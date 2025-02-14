@@ -59,7 +59,6 @@ public class SwerveModule {
 
     /* Angle Motor Config */
     angleMotor = new SparkMax(moduleConstants.angleMotorID, MotorType.kBrushless);
-
     integratedAngleEncoder = angleMotor.getEncoder();
     angleController = angleMotor.getClosedLoopController();
     configAngleMotor();
@@ -69,7 +68,6 @@ public class SwerveModule {
     driveEncoder = driveMotor.getEncoder();
     driveController = driveMotor.getClosedLoopController();
     configDriveMotor();
-
     lastAngle = getState().angle;
   }
 

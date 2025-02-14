@@ -10,12 +10,12 @@ import frc.robot.Constants;
 public class IntakeSub extends SubsystemBase{
     private final static Talon LeftIntake = new Talon(Constants.PWMPort.LeftIntakePort);
     private final static Talon RightIntake = new Talon(Constants.PWMPort.RightIntakePort);
-    private final static SparkMax Spinner = new SparkMax(Constants.CANPort.SpinnerPort, MotorType.kBrushless);
+    private final static SparkMax Spinner = new SparkMax(Constants.CANPort.SpinnerPort, MotorType.kBrushed);
     
     public static void runMotor(int motorNumber, double incomingPower){
         switch(motorNumber){
             case 0:
-                LeftIntake.set(incomingPower);
+                LeftIntake.set(-incomingPower);
                 RightIntake.set(incomingPower);
             break;
             case 2:

@@ -22,15 +22,22 @@ public class Intake extends Command{
     @Override 
     public void execute(){
         if (type == "Front Arm"){
-            IntakeSub.runMotor(0,incomingPower);
+            localIntakeSub.runMotor(0,incomingPower);
         }
         else if (type == "Spinner"){
-            IntakeSub.runMotor(2, incomingPower);
+            localIntakeSub.runMotor(2, incomingPower);
         }
     }
 
     @Override
-    public void end(boolean isFinished){}
+    public void end(boolean isFinished){
+        if (type == "Front Arm"){
+            localIntakeSub.runMotor(0,0);
+        }
+        else if (type == "Spinner"){
+            new EndSpinner(localIntakeSub, incomingPower);
+        }
+    }
 
     @Override
     public boolean isFinished(){

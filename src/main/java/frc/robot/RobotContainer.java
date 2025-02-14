@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -30,6 +31,8 @@ public class RobotContainer {
   private final Swerve s_Swerve = new Swerve();
   private final StringPotSub m_StringPotSub = new StringPotSub();
   private final IntakeSub m_intakeSub = new IntakeSub();
+
+  public final static DigitalInput m_sensor = new DigitalInput(0);
 
   /* Controllers */
   private final static XboxController driver = new XboxController(Constants.DrivingConstants.driverPort);
@@ -65,11 +68,11 @@ public class RobotContainer {
 	private POVButton left = new POVButton(operator, 270);
 	private POVButton right = new POVButton(operator, 90);
 
-  Trigger elevationTrigger = new Trigger(() -> operator.getRawAxis(1) != 0);
+  /*Trigger elevationTrigger = new Trigger(() -> operator.getRawAxis(1) != 0);
   Trigger leftWenchTrigger = new Trigger(() -> operator.getRawAxis(2) != 0);
   Trigger rightWenchTrigger = new Trigger(() -> operator.getRawAxis(3) != 0);
   Trigger elevatorTrigger = new Trigger(() -> operator.getRawAxis(5) != 0);
-  Trigger extensionTrigger = new Trigger(() -> operator.getRawAxis(4) != 0);
+  Trigger extensionTrigger = new Trigger(() -> operator.getRawAxis(4) != 0); */
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -82,11 +85,16 @@ public class RobotContainer {
             () -> -driver.getRawAxis(rotationAxis),
             () -> robotCentric.getAsBoolean()));
 
+    //m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub, "Elevation"));
+    m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub, "Elevator"));
+    m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub, "Extension"));
+    //m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub, "Wench"));
+
     // Configure the button bindings
     configureButtonBindings();
   }
   
-  /**
+  /*
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
@@ -96,21 +104,21 @@ public class RobotContainer {
     /* Driver Buttons */
     //Prof - Motor 1; Rogue - Motor 2
     //zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    ArmIntake.onTrue(new Intake(m_intakeSub,1,"Front Arm"));
-    ArmDetake.onTrue(new Intake(m_intakeSub,-1,"Front Arm"));
-    LiftUp.onTrue(new StringPotButton(m_StringPotSub,1,"Lift"));
-    LiftDown.onTrue(new StringPotButton(m_StringPotSub,-1,"Lift"));
-    Spinner.onTrue(new Intake(m_intakeSub,1,"Spinner"));
-    Flippy.onTrue(new StringPotButton(m_StringPotSub,1,"Flippy"));
-    up.onTrue(new StringPotButton(m_StringPotSub,1,"Elevator"));
-    left.onTrue(new StringPotButton(m_StringPotSub, 1, "Elevator"));
-    right.onTrue(new StringPotButton(m_StringPotSub, 1, "Elevator"));
+    ArmIntake.whileTrue(new Intake(m_intakeSub,1,"Front Arm"));
+    ArmDetake.whileTrue(new Intake(m_intakeSub,-1,"Front Arm"));
+    LiftUp.whileTrue(new StringPotButton(m_StringPotSub,.3,"Lift"));
+    LiftDown.whileTrue(new StringPotButton(m_StringPotSub,-.3,"Lift"));
+    Spinner.whileTrue(new Intake(m_intakeSub,.4,"Spinner"));
+    Flippy.whileTrue(new StringPotButton(m_StringPotSub,1,"Flippy"));
+    up.whileTrue(new StringPotButton(m_StringPotSub,1,"Elevator"));
+    left.whileTrue(new StringPotButton(m_StringPotSub, 1, "Elevator"));
+    right.whileTrue(new StringPotButton(m_StringPotSub, 1, "Elevator"));
     
-    elevationTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Elevation"));
+    /*elevationTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Elevation"));
     elevatorTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Elevator"));
     extensionTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Extension"));
     leftWenchTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Wench"));
-    rightWenchTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Wench"));
+    rightWenchTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Wench"));*/
   }
   
   //bounds low: 0.01, high 0.07
