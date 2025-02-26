@@ -16,14 +16,13 @@ public class StringPotSub extends SubsystemBase {
     //Wolverine = ; Prof = 1; Storm = ; Rogue = ;
     public static boolean autoComplete = false;
     //private final static SparkMax Wolverine = new SparkMax(Constants.Swerve.WolvePort, MotorType.kBrushless);
-    private final static SparkMax LeftLift = new SparkMax(Constants.CANPort.LeftLiftPort, MotorType.kBrushless);
-    private final static SparkMax RightLift = new SparkMax(Constants.CANPort.RightLiftPort, MotorType.kBrushless);
+    private final static SparkMax LeftLift = new SparkMax(Constants.CANPort.LeftLiftPort, MotorType.kBrushed);
+    private final static SparkMax RightLift = new SparkMax(Constants.CANPort.RightLiftPort, MotorType.kBrushed);
     private final static SparkMax Elevation = new SparkMax(Constants.CANPort.ElevationPort, MotorType.kBrushless);
-    private final static SparkMax Wench = new SparkMax(Constants.CANPort.WenchPort, MotorType.kBrushless);
+    private final static Talon Wench = new Talon(Constants.PWMPort.WinchPort);
     private final static SparkMax Elevator = new SparkMax(Constants.CANPort.ElevatorPort, MotorType.kBrushless);
-    private final static SparkMax Flippy = new SparkMax(Constants.CANPort.FlippyPort, MotorType.kBrushless);
-    private final static Talon Extension = new Talon(Constants.PWMPort.ExtensionPort);
-
+    private final static SparkMax Flippy = new SparkMax(Constants.CANPort.FlippyPort, MotorType.kBrushed);
+    private final static SparkMax Extension = new SparkMax(Constants.CANPort.ExtensionPort, MotorType.kBrushed);
 
     public static void runMotorAxis(double min, double max, int motorNumber){
         //double setNum = RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1);
@@ -52,78 +51,114 @@ public class StringPotSub extends SubsystemBase {
                 }
             break;
             case 1:
-                if ((Constants.StringPot(3) > min) && (Constants.StringPot(3) < max)) {
-                    Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
-                }
-                else if ((Constants.StringPot(3) < min)) {
-                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
-                        Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,1));
-                    }   
-                    else {
-                        Wench.set(0);
+                if ((RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2)) > 0){
+                    if ((Constants.StringPot(3) > min) && (Constants.StringPot(3) < max)) {
+                        Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
+                    }
+                    else if ((Constants.StringPot(3) < min)) {
+                        if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
+                            Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
+                        }   
+                        else {
+                            Wench.set(0);
+                        }
+                    }
+                    else if ((Constants.StringPot(3) > max)){
+                        if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2) < 0){
+                            Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2));
+                        } 
+                        else {
+                            Wench.set(0);
+                        }
                     }
                 }
-                else if ((Constants.StringPot(3) > max)){
-                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
-                        Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1));
-                    } 
-                    else {
-                        Wench.set(0);
+                else if ((RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 3)) < 0){
+                    if ((Constants.StringPot(3) > min) && (Constants.StringPot(3) < max)) {
+                        Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
+                    }
+                    else if ((Constants.StringPot(3) < min)) {
+                        if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 3) > 0) {
+                            Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
+                        }   
+                        else {
+                            Wench.set(0);
+                        }
+                    }
+                    else if ((Constants.StringPot(3) > max)){
+                        if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2) < 0){
+                            Wench.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 3));
+                        } 
+                        else {
+                            Wench.set(0);
+                        }
                     }
                 }
             break;
-            case 2:
+            
+            /*case 2:
                 if ((Constants.StringPot(4) > min) && (Constants.StringPot(4) < max)) {
-                    Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
+                    Elevator.set(-RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,5));
                 }
                 else if ((Constants.StringPot(4) < min)) {
                     if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
-                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,3));
+                        Elevator.set(-RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,5));
                     }   
                     else {
                         Elevator.set(0);
                     }
                 }
                 else if ((Constants.StringPot(4) > max)){
-                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
-                        Elevator.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 3));
+                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 5) < 0){
+                        Elevator.set(-RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 5));
                     } 
                     else {
                         Elevator.set(0);
                     }
                 }
+            break; */
+
+            case 2:
+                Elevator.set(-RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 5));
             break;
+
+            /* 
             case 3:
                 if ((Constants.StringPot(5) > min) && (Constants.StringPot(5) < max)) {
-                    Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
+                    Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,4));
                 }
                 else if ((Constants.StringPot(5) < min)) {
-                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) > 0) {
-                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,2));
+                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 4) > 0) {
+                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,4));
                     }   
                     else {
                         Extension.set(0);
                     }
                 }
                 else if ((Constants.StringPot(5) > max)){
-                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 1) < 0){
-                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 2));
+                    if (RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 4) < 0){
+                        Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort, 4));
                     } 
                     else {
                         Extension.set(0);
                     }
                 }
+            break;*/
+
+            case 3:
+                Extension.set(RobotContainer.sendAxisValue(Constants.OperatingConstants.OperatingPort,4));
+
             break;
+
         }
         //return autoComplete;
     }
 
     public static void runMotorButton(double min, double max, int motorNumber, double incomingPower){
         switch(motorNumber){
-            case 0:
+            /*case 100:
                 if (((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max))&&((Constants.StringPot(1) > Constants.StringPotLimits.RightLiftMin)&&(Constants.StringPot(1) < Constants.StringPotLimits.RightLiftMax))) {
                     LeftLift.set(incomingPower);
-                    RightLift.set(incomingPower)
+                    RightLift.set(incomingPower);
                 }
                 else if ((Constants.StringPot(0) < min)&&(Constants.StringPot(1) > Constants.StringPotLimits.RightLiftMin)) {
                     if (incomingPower > 0) {
@@ -146,6 +181,50 @@ public class StringPotSub extends SubsystemBase {
                     }
                 }
             break;
+            */
+            case 0:
+                if ((Constants.StringPot(0) > min) && (Constants.StringPot(0) < max)) {
+                    LeftLift.set(incomingPower);
+                }
+                else if ((Constants.StringPot(0) < min)) {
+                    if (incomingPower > 0) {
+                        LeftLift.set(incomingPower);
+                    }   
+                    else {
+                        LeftLift.set(0);
+                    }
+                }
+                else if ((Constants.StringPot(0) > max)) {
+                    if (incomingPower < 0){
+                        LeftLift.set(incomingPower);
+                    } 
+                    else {
+                        LeftLift.set(0);
+                    }
+                }
+
+                if ((Constants.StringPot(1) > Constants.StringPotLimits.RightLiftMin) && (Constants.StringPot(1) < Constants.StringPotLimits.RightLiftMax)) {
+                    RightLift.set(incomingPower);
+                }
+                else if ((Constants.StringPot(1) < Constants.StringPotLimits.RightLiftMin)) {
+                    if (incomingPower > 0) {
+                        RightLift.set(incomingPower);
+                    }   
+                    else {
+                        RightLift.set(0);
+                    }
+                }
+                else if ((Constants.StringPot(1) > Constants.StringPotLimits.RightLiftMax)) {
+                    if (incomingPower < 0){
+                        RightLift.set(incomingPower);
+                    } 
+                    else {
+                        RightLift.set(0);
+                    }
+                }
+                
+            break;
+            
             case 1:
                 if ((Constants.StringPot(4) > min) && (Constants.StringPot(4) < max)) {
                     Elevator.set(incomingPower);

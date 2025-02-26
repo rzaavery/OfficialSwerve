@@ -4,13 +4,17 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.autos.*;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -28,53 +32,69 @@ public class RobotContainer {
   private final StringPotSub m_StringPotSub = new StringPotSub();
   private final IntakeSub m_intakeSub = new IntakeSub();
 
-  /* Controllers */
-  private final static CommandXboxController driver = new CommandXboxController(Constants.DrivingConstants.driverPort);
-  private final static CommandXboxController operator = new CommandXboxController(Constants.OperatingConstants.OperatingPort);
+  public final static DigitalInput m_sensor = new DigitalInput(0);
 
-  /* Drive Controls 
+  /* Controllers */
+  private final static XboxController driver = new XboxController(Constants.DrivingConstants.driverPort);
+  private final static XboxController operator = new XboxController(Constants.OperatingConstants.OperatingPort);
+
+  /* Drive Controls */
   private final int translationAxis = XboxController.Axis.kLeftY.value;
   private final int strafeAxis = XboxController.Axis.kLeftX.value;
-  private final int rotationAxis = XboxController.Axis.kRightX.value;*/
+  private final int rotationAxis = XboxController.Axis.kRightX.value;
   
   /* Driver Buttons 
   private final JoystickButton zeroGyro =
-      new JoystickButton(driver, XboxController.Button.kY.value);
+      new JoystickButton(driver, XboxController.Button.kY.value);*/
   private final JoystickButton robotCentric =
-      new JoystickButton(driver, XboxController.Button.kLeftBumper.value);*/
+      new JoystickButton(driver, XboxController.Button.kLeftBumper.value);
 
-  /*Operator Buttons 
+  /*Operator Buttons */
   //Ex button creation: private final JoystickButton stringPotButton = new JoystickButton(operator, XboxController.Button.kA.value);
   private final JoystickButton ArmIntake = 
-      new JoystickButton(operator,XboxController.Button.kX.value);
+      new JoystickButton(operator,3);
   private final JoystickButton ArmDetake =
-      new JoystickButton(operator,XboxController.Button.kY.value);
+      new JoystickButton(operator,4);
   private final JoystickButton LiftUp =
-      new JoystickButton(operator,XboxController.Button.kA.value);
+      new JoystickButton(operator,1);
   private final JoystickButton LiftDown =
-      new JoystickButton(operator,XboxController.Button.kB.value);
+      new JoystickButton(operator,2);
   private final JoystickButton Spinner =
-      new JoystickButton(operator,XboxController.Button.kStart.value);
-  private final JoystickButton */
+      new JoystickButton(operator,5);
+  private final JoystickButton Flippy =
+      new JoystickButton(operator, 6);
   
+  private POVButton up = new POVButton(operator, 0);
+	private POVButton left = new POVButton(operator, 270);
+	private POVButton right = new POVButton(operator, 90);
 
-  
+  /*Trigger elevationTrigger = new Trigger(() -> operator.getRawAxis(1) != 0);
+  Trigger leftWenchTrigger = new Trigger(() -> operator.getRawAxis(2) != 0);
+  Trigger rightWenchTrigger = new Trigger(() -> operator.getRawAxis(3) != 0);
+  Trigger elevatorTrigger = new Trigger(() -> operator.getRawAxis(5) != 0);
+  Trigger extensionTrigger = new Trigger(() -> operator.getRawAxis(4) != 0); */
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     //m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub,"Prof"));
     s_Swerve.setDefaultCommand(
         new TeleopSwerve(
             s_Swerve,
-            () -> -driver.getRawAxis(driver.getLeftY()),
-            () -> -driver.getRawAxis(driver.getLeftX()),
-            () -> -driver.getRawAxis(driver.getRightX()),
-            () -> driver.getLeftBumper()));
+            () -> -driver.getRawAxis(translationAxis),
+            () -> -driver.getRawAxis(strafeAxis),
+            () -> -driver.getRawAxis(rotationAxis),
+            () -> robotCentric.getAsBoolean()));
+
+    //m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub, "Elevation"));
+    m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub, "Elevator"));
+    m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub, "Extension"));
+    //m_StringPotSub.setDefaultCommand(new StringPotAxis(m_StringPotSub, "Wench"));
 
     // Configure the button bindings
     configureButtonBindings();
   }
   
-  /**
+  /*
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
@@ -84,20 +104,21 @@ public class RobotContainer {
     /* Driver Buttons */
     //Prof - Motor 1; Rogue - Motor 2
     //zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-    operator.x().onTrue(new Intake(m_intakeSub,1,"Front Arm"));
-    operator.y().onTrue(new Intake(m_intakeSub,-1,"Front Arm"));
-    operator.a().onTrue(new StringPotButton(m_StringPotSub,1,"Lift"));
-    operator.b().onTrue(new StringPotButton(m_StringPotSub,-1,"Lift"));
-    operator.start().onTrue(new Intake(m_intakeSub,1,"Spinner"));
-    operator.rightBumper().onTrue(new StringPotButton(m_StringPotSub,1,"Flippy"));
-    operator.POVButton(operator,0).onTrue(new StringPotButton(m_StringPotSub,0,"Elevator"));
-    operator.POVButton(operator,90).onTrue(new StringPotButton(m_StringPotSub,1,"Elevator"));
-    operator.POVButton(operator,270).onTrue(new StringPotButton(m_StringPotSub,2,"Elevator"));
-    operator.getLeftY().whileHeld(new StringPotAxis(m_StringPotSub,"Elevation"));
-    operator.getRightY().whileHeld(new StringPotAxis(m_StringPotSub,"Elevator"));
-    operator.getRightX().whileHeld(new StringPotAxis(m_StringPotSub,"Extension"));
-    operator.leftTrigger().onTrue(new StringPotAxis(m_StringPotSub,"Elevation"));
-    operator.rightTrigger().onTrue(new StringPotAxis(m_StringPotSub,"Elevation"));
+    ArmIntake.whileTrue(new Intake(m_intakeSub,1,"Front Arm"));
+    ArmDetake.whileTrue(new Intake(m_intakeSub,-1,"Front Arm"));
+    LiftUp.whileTrue(new StringPotButton(m_StringPotSub,.3,"Lift"));
+    LiftDown.whileTrue(new StringPotButton(m_StringPotSub,-.3,"Lift"));
+    Spinner.whileTrue(new Intake(m_intakeSub,.4,"Spinner"));
+    Flippy.whileTrue(new StringPotButton(m_StringPotSub,1,"Flippy"));
+    up.whileTrue(new StringPotButton(m_StringPotSub,1,"Elevator"));
+    left.whileTrue(new StringPotButton(m_StringPotSub, 1, "Elevator"));
+    right.whileTrue(new StringPotButton(m_StringPotSub, 1, "Elevator"));
+    
+    /*elevationTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Elevation"));
+    elevatorTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Elevator"));
+    extensionTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Extension"));
+    leftWenchTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Wench"));
+    rightWenchTrigger.whileTrue(new StringPotAxis(m_StringPotSub, "Wench"));*/
   }
   
   //bounds low: 0.01, high 0.07

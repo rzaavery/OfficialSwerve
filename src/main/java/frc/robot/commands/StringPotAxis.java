@@ -24,17 +24,20 @@ public class StringPotAxis extends Command{
     public void execute(){
         //localArmSub.runMotor();
         //Motor Number 0: Prof
-        if (type == "Elevation"){
-            StringPotSub.runMotorAxis(Constants.StringPotLimits.ElevationMin,Constants.StringPotLimits.ElevationMax,0);
+        /*if (type == "Elevation"){
+            localStringPotSub.runMotorAxis(Constants.StringPotLimits.ElevationMin,Constants.StringPotLimits.ElevationMax,0);
+        }*/
+        /*else if (type == "Wench"){
+            localStringPotSub.runMotorAxis(Constants.StringPotLimits.WenchMin, Constants.StringPotLimits.WenchMax, 1);
+        }*/
+        if (type == "Elevator"){
+            localStringPotSub.runMotorAxis(Constants.StringPotLimits.ElevatorMin, Constants.StringPotLimits.ElevatorMax, 2);
         }
-        else if (type == "Wench"){
-            StringPotSub.runMotorAxis(Constants.StringPotLimits.WenchMin, Constants.StringPotLimits.WenchMax, 1);
-        }
-        else if (type == "Elevator"){
-            StringPotSub.runMotorAxis(Constants.StringPotLimits.ElevationMin, Constants.StringPotLimits.ElevationMax, 2);
-        }
-        else if (type == "Flippy"){
-            StringPotSub.runMotorAxis(Constants.StringPotLimits.FlippyMin, Constants.StringPotLimits.FlippyMax, 3);
+        /*else if (type == "Flippy"){
+            localStringPotSub.runMotorAxis(Constants.StringPotLimits.FlippyMin, Constants.StringPotLimits.FlippyMax, 3);
+        }*/
+        if (type == "Extension") {
+            localStringPotSub.runMotorAxis(Constants. StringPotLimits.ExtensionMin, Constants.StringPotLimits.ExtensionMax, 3);
         }
     }
 
