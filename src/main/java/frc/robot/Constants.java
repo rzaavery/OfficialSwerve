@@ -90,7 +90,7 @@ public final class Constants {
       public static final int angleMotorID = 2;
       public static final int canCoderID = 10;
       public static final double MagnetOffset = -0.52001953125;
-      public static final double angleOffset = 327.48046875;
+      public static final double angleOffset = -90;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, MagnetOffset, angleOffset);
     }
@@ -101,7 +101,7 @@ public final class Constants {
       public static final int angleMotorID = 4;
       public static final int canCoderID = 12;
       public static final double MagnetOffset = 0.347900390625;
-      public static final double angleOffset = 286.34765625;
+      public static final double angleOffset = 0;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, MagnetOffset, angleOffset);
     }
@@ -112,7 +112,7 @@ public final class Constants {
       public static final int angleMotorID = 6;
       public static final int canCoderID = 13;
       public static final double MagnetOffset = -0.980712890625;
-      public static final double angleOffset = 55.01953125;
+      public static final double angleOffset = 180;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, MagnetOffset, angleOffset);
     }
@@ -123,7 +123,7 @@ public final class Constants {
       public static final int angleMotorID = 8;
       public static final int canCoderID = 11;
       public static final double MagnetOffset = -0.060546875;
-      public static final double angleOffset = 67.939453125;
+      public static final double angleOffset = 90;
       public static final SwerveModuleConstants constants =
           new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, MagnetOffset, angleOffset);
     }

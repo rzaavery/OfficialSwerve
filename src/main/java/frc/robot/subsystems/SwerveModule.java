@@ -24,6 +24,7 @@ import frc.lib.util.CANSparkMaxUtil.Usage;
 import frc.robot.Constants;
 import frc.robot.Robot;
 import frc.robot.CTREConfigs;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class SwerveModule {
   public int moduleNumber;
@@ -38,6 +39,9 @@ public class SwerveModule {
   private RelativeEncoder integratedAngleEncoder;
   private CANcoder angleEncoder;
 
+  public static final SparkMaxConfig driveConfig = new SparkMaxConfig();
+  public static final SparkMaxConfig turningConfig = new SparkMaxConfig();
+
   private final SparkClosedLoopController driveController;
   private final SparkClosedLoopController angleController;
 
@@ -51,6 +55,8 @@ public class SwerveModule {
     this.moduleNumber = moduleNumber;
     this.angleOffset = moduleConstants.angleOffset;
     this.MagnetOffset = moduleConstants.MagnetOffset;
+
+    m_chassisAngularOffset = angleOffset;
 
     /* Angle Encoder Config */
     angleEncoder = new CANcoder(moduleConstants.cancoderID);
@@ -68,6 +74,7 @@ public class SwerveModule {
     driveMotor = new SparkMax(moduleConstants.driveMotorID, MotorType.kBrushless);
     driveEncoder = driveMotor.getEncoder();
     driveController = driveMotor.getClosedLoopController();
+    angleController.setPosition(0);
     configDriveMotor();
 
     lastAngle = getState().angle;
@@ -94,7 +101,7 @@ public class SwerveModule {
   private void configAngleMotor() {
    CANSparkMaxUtil.setCANSparkMaxBusUsage(angleMotor, Usage.kPositionOnly);
     Robot.ctreConfigs.config
-      .inverted(true)
+      .inverted(false)
       .idleMode(IdleMode.kBrake);
     Robot.ctreConfigs.config.encoder
       .positionConversionFactor(Constants.Swerve.angleConversionFactor);
